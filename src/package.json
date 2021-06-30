@@ -1,0 +1,13 @@
+{
+    "name": "seashell-cli",
+    "version": "1.0.0",
+    "license": "MIT",
+    "bin": {
+        "seash": "bin/seashell"
+    },
+    "scripts": {},
+    "dependencies": {
+        "minimist": "^1.2.5",
+        "ora": "^5.4.1"
+    }
+}
