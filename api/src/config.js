@@ -10,4 +10,9 @@ const dbConfig = {
 
 };
 
-module.exports = {environment, port, dbConfig};
+const mongodbconfig = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
+module.exports = {environment, port, dbConfig, mongodbconfig};
