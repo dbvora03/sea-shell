@@ -1,26 +1,34 @@
 const express = require('express');
 const cors = require('cors');
 const compression = require('express');
-const redis = require('redis');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 
-const {port, dbConfig, mongodbconfig} = require('./config');
+const {port, redisdb, mongodbconfig, mongouri} = require('./config');
 const app = express();
 
 app.use(express.json());
 app.use(compression());
+app.use(helmet());
 app.use(cors());
 
-const MONGOURI = require('../key');
 
-mongoose.connect(MONGOURI, mongodbconfig).then(()=> {
+require('dotenv').config();
+
+mongoose.connect(mongouri, mongodbconfig).then(()=> {
   console.log('MongoDB Connected');
 }).catch((err)=> {
   console.log(err);
 });
 
+require('./models/command');
+require('./models/user');
 
-const redisdb = redis.createClient(dbConfig);
+app.use(require('./routes'));
+
+redisdb.on('connect', () => {
+  console.log('Connected to redis');
+});
 
 redisdb.on('error', (err) => {
   console.log('Error' + err);

@@ -1,18 +1,28 @@
+const redis = require('redis');
+
+const {
+  REDISHOST, REDISPASSWORD, REDISPORT, MONGOURI, JWTSECRET, HASH,
+} = require('../key');
+
+const JWT_SECRET = process.env.JWT_SECRET || JWTSECRET;
 const environment = process.env.NODE_ENV;
 const port = process.env.PORT || 8080;
+const mongouri = process.env.MONGOURI || MONGOURI;
+const BCRYPTHASH = process.env.BCRYPTHASH || HASH;
 
-// Dont worry, these are env values for dev.
-// Actual production values won't be used.
 const dbConfig = {
-  host: 'redis-10091.c60.us-west-1-2.ec2.cloud.redislabs.com',
-  port: 10091,
-  password: 'U3ZfgofQel3HwfJ6RvN8FKTBb5TBN02B',
-
+  host: process.env.REDISHOST || REDISHOST,
+  port: process.env.REDISPORT || REDISPORT,
+  password: process.env.REDISPASSWORD || REDISPASSWORD,
 };
+
+const redisdb = redis.createClient(dbConfig);
 
 const mongodbconfig = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
 
-module.exports = {environment, port, dbConfig, mongodbconfig};
+module.exports = {
+  environment, port, redisdb, mongodbconfig, mongouri, JWT_SECRET, BCRYPTHASH,
+};
