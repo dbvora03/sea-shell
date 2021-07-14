@@ -11,13 +11,22 @@ const getCommand = async (req, res) => {
   let foundCommand;
   redisdb.get(commandName, (err, data)=> {
     if (err) {
+      console.log('Error checking cache');
+      res.status(500).send(err);
+    }
+
+    if (data == null) {
       Command.findOne({commandName: commandName}).then((returnedCommand) => {
+        if (!returnedCommand) {
+          return res.status(422).json({error: 'This command does not exist'});
+        }
         redisdb.setex(commandName, 86400, JSON.stringify(returnedCommand));
         foundCommand = returnedCommand;
       }).catch((err)=> {
         console.log(err);
       });
     }
+
     if (data != null) {
       foundCommand = JSON.parse(data);
     }
