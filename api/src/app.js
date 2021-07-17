@@ -12,6 +12,13 @@ app.use(compression());
 app.use(helmet());
 app.use(cors());
 
+app.use(function(req, res, next) {
+  const err = new Error('Not Found');
+  err.status = 404;
+  err.code = 'NotFound';
+  next(err);
+});
+
 
 require('dotenv').config();
 
@@ -24,7 +31,7 @@ mongoose.connect(mongouri, mongodbconfig).then(()=> {
 require('./models/command');
 require('./models/user');
 
-app.use(require('./routes'));
+app.use(require('./routes/index'));
 
 redisdb.on('connect', () => {
   console.log('Connected to redis');
