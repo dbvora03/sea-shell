@@ -4,7 +4,7 @@ const compression = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 
-const {port, redisdb, mongodbconfig, mongouri} = require('./config');
+const {port, redisdb, mongodbconfig, mongouri, logger} = require('./config');
 const app = express();
 
 app.use(express.json());
@@ -23,9 +23,9 @@ app.use(function(req, res, next) {
 require('dotenv').config();
 
 mongoose.connect(mongouri, mongodbconfig).then(()=> {
-  console.log('MongoDB Connected');
+  logger.info('MongoDB Connected');
 }).catch((err)=> {
-  console.log(err);
+  logger.error(err);
 });
 
 require('./models/command');
@@ -34,28 +34,28 @@ require('./models/user');
 app.use(require('./routes/index'));
 
 redisdb.on('connect', () => {
-  console.log('Connected to redis');
+  logger.info('Connected to redis');
 });
 
 redisdb.on('error', (err) => {
-  console.log('Error' + err);
+  logger.error('Error' + err);
 });
 
 
 app.listen(port, ()=> {
-  console.log(`server running on port : ${port}`);
-}).on('error', (e) => console.log(e));
+  logger.info(`server running on port : ${port}`);
+}).on('error', (e) => logger.error(e));
 
 
 // If node process shuts down, all database connections are disconnected
 process.on('SIGINT', () => {
   redisdb.quit();
   mongoose.connection.close();
-  console.log('\nNode server has been shut down. Shutting down databases');
+  logger.fatal('\nNode server has been shut down. Shutting down databases');
   process.exit(1);
 });
 
 process.on('uncaughtException', (e) => {
   // Temporary replacement for when we put in the logger
-  console.log(e);
+  logger.fatal(e);
 });

@@ -1,4 +1,5 @@
 const redis = require('redis');
+const winston = require('winston');
 
 const {
   REDISHOST, REDISPASSWORD, REDISPORT, MONGOURI, JWTSECRET, HASH,
@@ -17,6 +18,14 @@ const dbConfig = {
 };
 
 const redisdb = redis.createClient(dbConfig);
+const consoleTransport = new winston.transports.Console();
+
+const myWinstonOptions = {
+  transports: [consoleTransport],
+};
+
+// eslint-disable-next-line new-cap
+const logger = new winston.createLogger(myWinstonOptions);
 
 const mongodbconfig = {
   useNewUrlParser: true,
@@ -24,5 +33,12 @@ const mongodbconfig = {
 };
 
 module.exports = {
-  environment, port, redisdb, mongodbconfig, mongouri, JWT_SECRET, BCRYPTHASH,
+  environment,
+  port,
+  redisdb,
+  mongodbconfig,
+  mongouri,
+  JWT_SECRET,
+  BCRYPTHASH,
+  logger,
 };

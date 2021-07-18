@@ -25,5 +25,4 @@ router.post('/addCommand', addCommand);
 // DELETE
 router.delete('/deleteCommand/:commandId', deleteCommand);
 
-
 module.exports = router;

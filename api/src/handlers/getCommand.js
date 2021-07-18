@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {JWT_SECRET, redisdb} = require('../config');
+const {JWT_SECRET, redisdb, logger} = require('../config');
 const mongoose = require('mongoose');
 
 const Command = mongoose.model('Command');
@@ -11,7 +11,7 @@ const getCommand = async (req, res) => {
   let foundCommand;
   redisdb.get(commandName, (err, data)=> {
     if (err) {
-      console.log('Error checking cache');
+      logger.error('Error checking cache');
       res.status(500).send(err);
     }
 
@@ -23,7 +23,7 @@ const getCommand = async (req, res) => {
         redisdb.setex(commandName, 86400, JSON.stringify(returnedCommand));
         foundCommand = returnedCommand;
       }).catch((err)=> {
-        console.log(err);
+        logger.error(err);
       });
     }
 

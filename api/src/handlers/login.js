@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const {JWT_SECRET} = require('../config');
+const {JWT_SECRET, logger} = require('../config');
 
 const User = mongoose.model('User');
 
@@ -31,10 +31,10 @@ const login = (req, res) => {
         });
       }
     }).catch((err)=> {
-      console.log(err);
+      logger.error(err);
     });
   }).catch((err)=> {
-    console.log(err);
+    logger.error(err);
   });
 };
 

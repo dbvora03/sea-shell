@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {logger} = require('../config');
 const Command = mongoose.model('Command');
 
 const addCommand = (req, res) => {
@@ -29,7 +30,7 @@ const addCommand = (req, res) => {
       command: result,
     });
   }).catch((err) => {
-    console.log(err);
+    logger.error(err);
   });
 };
 
