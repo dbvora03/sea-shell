@@ -12,13 +12,6 @@ app.use(compression());
 app.use(helmet());
 app.use(cors());
 
-app.use(function(req, res, next) {
-  const err = new Error('Not Found');
-  err.status = 404;
-  err.code = 'NotFound';
-  next(err);
-});
-
 
 require('dotenv').config();
 
@@ -59,3 +52,5 @@ process.on('uncaughtException', (e) => {
   // Temporary replacement for when we put in the logger
   logger.fatal(e);
 });
+
+module.exports = app;
