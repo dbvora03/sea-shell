@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const {BCRYPTHASH} = require('../config');
 
 const User = mongoose.model('User');
 
@@ -11,40 +12,38 @@ const signup = async (req, res) => {
     return res.status(422).json({error: 'Add all of the fields please'});
   }
 
-  const possibleUsername = User.findOne({username: username});
-  const possibleEmail = User.findOne({email: email});
+  User.findOne({username: username}).then((founduser) => {
+    if (founduser) {
+      return res.status(422).json({error: 'Username already taken'});
+    }
 
-  if (possibleEmail) {
-    return res.status(404).json(
-        {error:
-           'This email already exists, please pick another one or log in',
-        },
-    );
-  }
+    User.findOne({email: email}).then((savedEmail) => {
+      if (savedEmail) {
+        return res.status(422).json({error: 'Email already taken'});
+      }
 
-  if (possibleUsername) {
-    return res.status(404).json(
-        {error:
-           'This username already exists, please pick another one or log in',
-        },
-    );
-  }
+      bcrypt.hash(password, BCRYPTHASH).then((hashedpassword) => {
+        console.log(hashedpassword);
+        const user = new User({
+          email: email,
+          password: hashedpassword,
+          username: username,
+        });
+        user.save();
 
-  bcrypt.hash(password, BCRYPTHASH).then((hashedpassword) => {
-    const user = new User({
-      email: email,
-      password: hashedpassword,
-      username: username,
+        return res.status(202).json({
+          message: 'User has been saved',
+          user: user,
+        });
+      }).catch((err) => {
+        return res.status(500).json({error: err});
+      });
+    }).catch((err)=> {
+      return res.status(500).json({error: err});
     });
-
-    user.save();
-
-    return res.status(202).json({
-      message: 'User has been saved',
-      user: user,
-    });
+  }).catch((err)=> {
+    return res.status(500).json({error: err});
   });
 };
-
 
 module.exports = signup;

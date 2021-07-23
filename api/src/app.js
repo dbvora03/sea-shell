@@ -44,13 +44,14 @@ app.listen(port, ()=> {
 process.on('SIGINT', () => {
   redisdb.quit();
   mongoose.connection.close();
-  logger.fatal('\nNode server has been shut down. Shutting down databases');
+  logger.error('\nNode server has been shut down. Shutting down databases');
   process.exit(1);
 });
 
 process.on('uncaughtException', (e) => {
   // Temporary replacement for when we put in the logger
-  logger.fatal(e);
+  logger.error(e);
 });
 
 module.exports = app;
+

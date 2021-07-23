@@ -11,18 +11,20 @@ const addCommand = require('../handlers/addCommand');
 const allCommands = require('../handlers/allCommands');
 const deleteCommand = require('../handlers/deleteCommand');
 
+const requireLogin = require('../middlewares/requireLogin');
+
 // GET
 router.get('/test', tester);
 router.get('/getCommand', getCommand);
-router.get('/allCommands', allCommands);
+router.get('/allCommands', requireLogin, allCommands);
 
 // POST
 router.post('/login', login);
 router.post('/signup', signup);
-router.post('/logout', logout);
-router.post('/addCommand', addCommand);
+router.post('/logout', requireLogin, logout);
+router.post('/addCommand', requireLogin, addCommand);
 
 // DELETE
-router.delete('/deleteCommand/:commandId', deleteCommand);
+router.delete('/deleteCommand/:commandId', requireLogin, deleteCommand);
 
 module.exports = router;
