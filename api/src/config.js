@@ -27,6 +27,23 @@ const myWinstonOptions = {
 // eslint-disable-next-line new-cap
 const logger = new winston.createLogger(myWinstonOptions);
 
+const expressWinstonConfig = {
+  transports: [
+    new winston.transports.Console(),
+  ],
+  format: winston.format.combine(
+      winston.format.colorize(),
+      winston.format.json(),
+  ),
+  meta: true,
+  msg: 'HTTP {{req.method}} {{req.url}}',
+  expressFormat: true,
+  colorize: true,
+  ignoreRoute: function(req, res) {
+    return false;
+  },
+};
+
 const mongodbconfig = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -41,4 +58,5 @@ module.exports = {
   JWT_SECRET,
   BCRYPTHASH,
   logger,
+  expressWinstonConfig,
 };

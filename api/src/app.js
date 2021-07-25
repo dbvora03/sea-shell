@@ -3,14 +3,23 @@ const cors = require('cors');
 const compression = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
+const expressWinston = require('express-winston');
 
-const {port, redisdb, mongodbconfig, mongouri, logger} = require('./config');
+const {
+  port,
+  redisdb,
+  mongodbconfig,
+  mongouri,
+  logger,
+  expressWinstonConfig,
+} = require('./config');
 const app = express();
 
 app.use(express.json());
 app.use(compression());
 app.use(helmet());
 app.use(cors());
+app.use(expressWinston.logger(expressWinstonConfig));
 
 
 require('dotenv').config();
