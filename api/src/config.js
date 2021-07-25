@@ -19,9 +19,25 @@ const dbConfig = {
 
 const redisdb = redis.createClient(dbConfig);
 const consoleTransport = new winston.transports.Console();
+const fileTransport = new winston.transports.File({
+  filename: './logs/general.log',
+  json: false,
+  timestamp: true,
+  maxFiles: '2d',
+});
+
+const httpfileTransport = new winston.transports.File({
+  filename: './logs/http.log',
+  json: false,
+  timestamp: true,
+  maxFiles: '2d',
+});
 
 const myWinstonOptions = {
-  transports: [consoleTransport],
+  transports: [
+    consoleTransport,
+    fileTransport,
+  ],
 };
 
 // eslint-disable-next-line new-cap
@@ -29,7 +45,8 @@ const logger = new winston.createLogger(myWinstonOptions);
 
 const expressWinstonConfig = {
   transports: [
-    new winston.transports.Console(),
+    consoleTransport,
+    httpfileTransport,
   ],
   format: winston.format.combine(
       winston.format.colorize(),
