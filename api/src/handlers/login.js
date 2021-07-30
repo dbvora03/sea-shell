@@ -22,7 +22,6 @@ const login = (req, res) => {
       if (doesMatch) {
         const token = jwt.sign({_id: savedUser._id}, JWT_SECRET);
         const {_id, username, email} = savedUser;
-
         return res.status(200).json({
           token: token,
           user: {
