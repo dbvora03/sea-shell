@@ -1,5 +1,3 @@
-
-
 const helpMenu = {
   'version': `
     Usage: version [options]
@@ -7,7 +5,7 @@ const helpMenu = {
       -h, --help  Show this help.
       -v, --ver  Show version.
   `,
-}
+};
 
 
 module.exports = helpMenu;
