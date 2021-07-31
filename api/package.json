@@ -8,7 +8,7 @@
     "start-cluster": "bin/start-cluster"
   },
   "scripts": {
-    "test": "mocha $(find test -name '*.js')"
+    "test": "jest $(find test -name '*.js')"
   },
   "author": "dbvora03",
   "license": "ISC",
@@ -31,10 +31,9 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
-    "chai-http": "^4.3.0",
     "eslint": "^7.29.0",
     "eslint-config-google": "^0.14.0",
+    "jest": "^27.0.6",
     "mocha": "^9.0.2"
   }
 }
