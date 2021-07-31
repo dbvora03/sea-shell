@@ -6,7 +6,6 @@ const helmet = require('helmet');
 const expressWinston = require('express-winston');
 
 const {
-  port,
   redisdb,
   mongodbconfig,
   mongouri,
@@ -42,12 +41,6 @@ redisdb.on('connect', () => {
 redisdb.on('error', (err) => {
   logger.error('Error' + err);
 });
-
-
-app.listen(port, ()=> {
-  logger.info(`server running on port : ${port}`);
-}).on('error', (e) => logger.error(e));
-
 
 // If node process shuts down, all database connections are disconnected
 process.on('SIGINT', () => {

@@ -1,3 +1,4 @@
+/*
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET, redisdb, logger} = require('../config');
 const mongoose = require('mongoose');
@@ -7,20 +8,28 @@ const Command = mongoose.model('Command');
 const getCommand = async (req, res) => {
   const {commandName} = req.body;
 
+  console.log('1')
   redisdb.get(commandName, (err, data)=> {
+
+    console.log('2')
     if (err) {
       logger.error('Error checking cache');
       res.status(500).send(err);
     }
 
     if (data == null) {
+      console.log('3')
+
       Command.findOne({name: commandName}).then((returnedCommand) => {
+        console.log('4')
+
         if (!returnedCommand) {
           return res.status(422).json({error: 'This command does not exist'});
         }
 
         redisdb.setex(commandName, 86400, JSON.stringify(returnedCommand));
         const dbValue = returnedCommand;
+
 
         if (dbValue.isPrivate) {
           const {authorization} = req.headers;

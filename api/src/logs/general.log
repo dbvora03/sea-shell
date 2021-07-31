@@ -1,3 +1,5 @@
+
+{"message":"\nNode server has been shut down. Shutting down databases","level":"error"}
 {"message":"server running on port : 8080","level":"info"}
 {"message":"Connected to redis","level":"info"}
 {"message":"MongoDB Connected","level":"info"}
@@ -5,6 +7,15 @@
 {"message":"server running on port : 8080","level":"info"}
 {"message":"Connected to redis","level":"info"}
 {"message":"MongoDB Connected","level":"info"}
+{"message":"\nNode server has been shut down. Shutting down databases","level":"error"}
+{"message":"server running on port : 8080","level":"info"}
+{"message":"Connected to redis","level":"info"}
+{"message":"MongoDB Connected","level":"info"}
+{"message":"\nNode server has been shut down. Shutting down databases","level":"error"}
+{"message":"server running on port : 8080","level":"info"}
+{"message":"Connected to redis","level":"info"}
+{"message":"MongoDB Connected","level":"info"}
+{"level":"error"}
 {"message":"\nNode server has been shut down. Shutting down databases","level":"error"}
 {"message":"server running on port : 8080","level":"info"}
 {"message":"Connected to redis","level":"info"}
