@@ -7,6 +7,7 @@
     },
     "scripts": {},
     "dependencies": {
+        "axios": "^0.21.1",
         "minimist": "^1.2.5",
         "ora": "^5.4.1"
     },

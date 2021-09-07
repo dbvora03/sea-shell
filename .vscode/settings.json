@@ -12,5 +12,6 @@
     "ignore": {
       "parser": "code"
     }
-  }
+  },
+  "editor.autoClosingBrackets": "always"
 }

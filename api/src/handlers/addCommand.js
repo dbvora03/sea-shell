@@ -17,7 +17,7 @@ const addCommand = (req, res) => {
   req.user.password = undefined;
 
   const newCommand = new Command({
-    name: name,
+    name: req.user.username + '/' + name,
     description: description,
     script: script,
     creator: req.user,
@@ -26,7 +26,7 @@ const addCommand = (req, res) => {
 
   newCommand.save().then((result) => {
     res.status(200).json({
-      message: 'Command saved successfully',
+      message: `${req.user.username}/${name} saved successfully`,
       command: result,
     });
   }).catch((err) => {

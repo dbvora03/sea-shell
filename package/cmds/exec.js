@@ -5,23 +5,20 @@ module.exports = async (args) => {
   const spinner = ora(`executing ${args._[1]}`).start();
 
   try {
-    const resultCommand = await axios({
+    console.log(args._[1]);
+
+    const results = await axios({
       method: 'get',
-      url: `http://localhost:8080`,
-      responseType: 'json',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ` + sessionStorage.getItem('token'),
-      },
+      url: 'http://localhost:8080/getCommand',
       body: {
-        command: args._[1],
+        'commandName': args._[1],
       },
     });
-
-    spinner.succeed(`executed ${resultCommand.data.name}`);
-  } catch (err) {
-    spinner.fail(`execution failed: ${err}`);
-  } finally {
     spinner.stop();
+
+    console.log(results);
+  } catch (err) {
+    spinner.stop();
+    console.log(err);
   }
 };

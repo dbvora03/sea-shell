@@ -1,0 +1,16 @@
+{"message":"server running on port : 8080","level":"info"}
+{"message":"Connected to redis","level":"info"}
+{"message":"MongoDB Connected","level":"info"}
+{"message":"server running on port : 8080","level":"info"}
+{"message":"Connected to redis","level":"info"}
+{"message":"MongoDB Connected","level":"info"}
+{"message":"ErrorError: Redis connection to redis-10091.c60.us-west-1-2.ec2.cloud.redislabs.com:10091 failed - read ECONNRESET","level":"error"}
+{"message":"Connected to redis","level":"info"}
+{"message":"ErrorError: Redis connection to redis-10091.c60.us-west-1-2.ec2.cloud.redislabs.com:10091 failed - read ECONNRESET","level":"error"}
+{"message":"Error checking cache","level":"error"}
+{"message":"Connected to redis","level":"info"}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"message":"\nNode server has been shut down. Shutting down databases","level":"error"}
+{"message":"server running on port : 8080","level":"info"}
+{"message":"Connected to redis","level":"info"}
+{"message":"MongoDB Connected","level":"info"}
