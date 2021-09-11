@@ -1,5 +1,6 @@
 const ora = require('ora');
 const axios = require('axios');
+const execSync = require('child_process').execSync;
 
 module.exports = async (args) => {
   const spinner = ora(`executing ${args._[1]}`).start();
@@ -8,7 +9,7 @@ module.exports = async (args) => {
     console.log(args._[1]);
 
     const results = await axios({
-      method: 'get',
+      method: 'post',
       url: 'http://localhost:8080/getCommand',
       body: {
         'commandName': args._[1],
@@ -16,7 +17,8 @@ module.exports = async (args) => {
     });
     spinner.stop();
 
-    console.log(results);
+    const output = execSync(results.command.script, {encoding: 'utf-8'});
+    console.log(output);
   } catch (err) {
     spinner.stop();
     console.log(err);

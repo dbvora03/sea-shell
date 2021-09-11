@@ -15,10 +15,10 @@ const requireLogin = require('../middlewares/requireLogin');
 
 // GET
 router.get('/test', tester);
-router.get('/getCommand', getCommand);
 router.get('/allCommands', requireLogin, allCommands);
 
 // POST
+router.post('/getCommand', getCommand);
 router.post('/login', login);
 router.post('/signup', signup);
 router.post('/logout', requireLogin, logout);

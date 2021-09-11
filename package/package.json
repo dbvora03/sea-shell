@@ -1,7 +1,23 @@
 {
-    "name": "seashell-cli",
+    "name": "seashell-bin",
     "version": "1.0.0",
+    "description": "A CLI app that stores your shell commands in the cloud",
     "license": "MIT",
+    "homepage": "https://github.com/dbvora03/sea-shell/tree/master/package",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dbvora03/sea-shell.git"
+    },
+    "engines": {
+        "node": ">=8"
+    },
+    "keywords": [
+        "seashell",
+        "seash",
+        "cloud shell",
+        "shell"
+    ],
+    "preferGlobal": true,
     "bin": {
         "seash": "bin/seashell"
     },

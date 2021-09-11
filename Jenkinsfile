@@ -17,12 +17,12 @@ pipeline {
         }
     }
 
-    post {
-      success {
-        echo 'Built successfully'
-      }
-      failure {
-        echo 'Failed to run build'
-      }
+  post {
+    success {
+      echo 'Built successfully'
     }
+    failure {
+      echo 'Failed to run build'
+    }
+  }
 }
